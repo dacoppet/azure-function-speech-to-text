@@ -1,3 +1,4 @@
+#r "Microsoft.WindowsAzure.Storage"
 using System;
 using System.IO;
 using System.Net.Http;
@@ -5,16 +6,11 @@ using System.Net.Http.Headers;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
 
-namespace AudioToText
+public static async Task Run(Stream myBlob, string name, TraceWriter log)
 {
-    public static class SpeechToTextRestBackup
-    {
-        [FunctionName("SpeechToTextRestBackup")]
-        [return: Queue("demoaudio", Connection = "Target-Blob")]
-        public static async System.Threading.Tasks.Task<string> RunAsync([BlobTrigger("demoaudio/{name}", Connection = "Target-Blob")]Stream audioFile,
-            string name, TraceWriter log)
-        {
-            log.Info($"C# Blob trigger function Processed audio file \n Name:{name} \n Size: {audioFile.Length} Bytes");
+    log.Info($"C# Blob trigger function Processed blob\n Name:{name} \n Size: {myBlob.Length} Bytes");
+
+     log.Info($"C# Blob trigger function Processed audio file \n Name:{name} \n Size: {myBlob.Length} Bytes");
             var culture = Environment.GetEnvironmentVariable("BingSpeech-Locale");
             var urlBase = "https://speech.platform.bing.com/speech/recognition/interactive/cognitiveservices/v1";
             var urlFull = $"{urlBase}?language={culture}&format=detailed";
@@ -27,7 +23,7 @@ namespace AudioToText
 
                 using (var content = new MultipartFormDataContent())
                 {
-                    var streamContent = new StreamContent(audioFile);
+                    var streamContent = new StreamContent(myBlob);
                     streamContent.Headers.Add("Content-Disposition", $"form-data; name=\"file\"; filename=\"{name}\"");
                     content.Add(streamContent, "file", name);
                     var result = await client.PostAsync(urlFull, content);
@@ -37,8 +33,4 @@ namespace AudioToText
                     log.Info($"Result  - {recognitionResult}");
                 }
             }
-
-            return recognitionResult;
-        }
-    }
 }

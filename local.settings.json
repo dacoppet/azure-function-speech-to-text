@@ -1,0 +1,18 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "WEBSITE_SLOT_NAME": "Production",
+    "FUNCTIONS_EXTENSION_VERSION": "~1",
+    "ScmType": "None",
+    "tokyomrstt_STORAGE": "DefaultEndpointsProtocol=https;AccountName=tokyomrstt;AccountKey=s+OhQFOrfsZjLwKasAN//Mkcjsdzu53EGykBgogZR21bju2bR1ESMC//Mxi/b1uWvkrR9VcboqYnzv0boO90Cw==",
+    "AzureWebJobsDashboard": "DefaultEndpointsProtocol=https;AccountName=tokyomrfunctionbe17;AccountKey=yzaZfy43XWKdKm4k/Mb28qeXHVTWz77XZerLlPjN3JzznBYZK/enUh1h1Hvy0TS8e3O3D45LaFH8ouwJEssqiQ==",
+    "WEBSITE_NODE_DEFAULT_VERSION": "6.5.0",
+    "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING": "DefaultEndpointsProtocol=https;AccountName=tokyomrfunctionbe17;AccountKey=yzaZfy43XWKdKm4k/Mb28qeXHVTWz77XZerLlPjN3JzznBYZK/enUh1h1Hvy0TS8e3O3D45LaFH8ouwJEssqiQ==",
+    "WEBSITE_CONTENTSHARE": "tokyomrfunctionsbe17",
+    "WEBSITE_AUTH_ENABLED": "False",
+    "BingSpeech-subscriptionKey": "44eb18e486574ff194182fcef5a6b047",
+    "BingSpeech-Locale": "ja-jp",
+    "WEBSITE_SITE_NAME": "tokyomrfunctions",
+    "AzureWebJobsStorage": "DefaultEndpointsProtocol=https;AccountName=tokyomrfunctionbe17;AccountKey=yzaZfy43XWKdKm4k/Mb28qeXHVTWz77XZerLlPjN3JzznBYZK/enUh1h1Hvy0TS8e3O3D45LaFH8ouwJEssqiQ=="
+  }
+}
