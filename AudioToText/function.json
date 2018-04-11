@@ -1,11 +1,18 @@
 {
   "bindings": [
     {
-      "name": "myBlob",
+      "name": "audio",
       "type": "blobTrigger",
       "direction": "in",
       "path": "audio/{name}",
-      "connection": "tokyomrstt_STORAGE"
+      "connection": "AzureWebJobsDashboard"
+    },
+    {
+      "type": "queue",
+      "name": "$return",
+      "queueName": "speechtotext",
+      "connection": "AzureWebJobsDashboard",
+      "direction": "out"
     }
   ],
   "disabled": false

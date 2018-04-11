@@ -1,16 +1,19 @@
-#r "Microsoft.WindowsAzure.Storage"
-using System;
+#r "Newtonsoft.Json"
+
+using System.Net;
 using System.IO;
+using Newtonsoft.Json;
+using System.Diagnostics;
+using System.Collections.Generic;
+using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Host;
+using System.Threading.Tasks;
 
-public static async Task Run(Stream myBlob, string name, TraceWriter log)
+public static async Task<string> Run(Stream audio, string name, TraceWriter log)
 {
-    log.Info($"C# Blob trigger function Processed blob\n Name:{name} \n Size: {myBlob.Length} Bytes");
 
-     log.Info($"C# Blob trigger function Processed audio file \n Name:{name} \n Size: {myBlob.Length} Bytes");
+    log.Info($"C# Blob trigger function Processed audio file \n Name:{name} \n Size: {audio.Length} Bytes");
             var culture = Environment.GetEnvironmentVariable("BingSpeech-Locale");
             var urlBase = "https://speech.platform.bing.com/speech/recognition/interactive/cognitiveservices/v1";
             var urlFull = $"{urlBase}?language={culture}&format=detailed";
@@ -23,7 +26,7 @@ public static async Task Run(Stream myBlob, string name, TraceWriter log)
 
                 using (var content = new MultipartFormDataContent())
                 {
-                    var streamContent = new StreamContent(myBlob);
+                    var streamContent = new StreamContent(audio);
                     streamContent.Headers.Add("Content-Disposition", $"form-data; name=\"file\"; filename=\"{name}\"");
                     content.Add(streamContent, "file", name);
                     var result = await client.PostAsync(urlFull, content);
@@ -33,4 +36,6 @@ public static async Task Run(Stream myBlob, string name, TraceWriter log)
                     log.Info($"Result  - {recognitionResult}");
                 }
             }
+
+            return recognitionResult;
 }
