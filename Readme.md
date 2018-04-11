@@ -12,3 +12,6 @@ In Azure Function
 	1. "Target-Blob": "DefaultEndpointsProtocol=https;AccountName=xxxx;AccountKey=xxxx;BlobEndpoint=https://xxxx.blob.core.windows.net/;QueueEndpoint=https://xxxx.queue.core.windows.net/;TableEndpoint=https://xxxx.table.core.windows.net/;FileEndpoint=https://xxxx.file.core.windows.net/;",
     2. "BingSpeech-subscriptionKey": "ReplaceWithYourSpeechApiKeyHere",
     3. "BingSpeech-Locale": "ja-jp"
+
+
+For git deployement checkout : https://docs.microsoft.com/en-us/azure/azure-functions/functions-continuous-deployment
