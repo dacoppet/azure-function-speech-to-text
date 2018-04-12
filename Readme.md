@@ -1,6 +1,7 @@
 ﻿# azure-function-speech-to-text
 This is a demo sample of using the Bing Speech API with an azure function where you upload a file and it will be translated automaticaly.
 Leverage the one click deploy by clicking on the Azure Deploy button:
+
 <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fdacoppet%2Fazure-function-speech-to-text%2Fmaster%2Ffeature/continousdeploy%2Fazuredeploy.json" target="_blank">
     <img src="http://azuredeploy.net/deploybutton.png"/>
 </a>
