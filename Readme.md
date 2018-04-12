@@ -1,5 +1,11 @@
 ﻿# azure-function-speech-to-text
-Using the Bing Speech API
+This ia a demo sample of using the Bing Speech API with an azure function
+
+# How to use it
+- Create an Azure Function and Clone the repo and do continuous deploy from Azure Functions [see documentation](https://docs.microsoft.com/en-us/azure/azure-functions/functions-continuous-deployment)
+- Upload an audio file in an azure storage container (audio)
+- The function will process it, call the speech api and output the result in an Azure que named speech to text
+- You can then process it with another function or just consume the message in your application
 
 # How to setup the function
 - Create an Azure Storage [New](https://ms.portal.azure.com/#create/Microsoft.StorageAccount-ARM)
