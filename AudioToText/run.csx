@@ -18,11 +18,11 @@ public static async Task<string> Run(Stream audio, string name, TraceWriter log)
             var urlBase = "https://speech.platform.bing.com/speech/recognition/interactive/cognitiveservices/v1";
             var urlFull = $"{urlBase}?language={culture}&format=detailed";
             var recognitionResult = string.Empty;
-            var subscriptionKey = Environment.GetEnvironmentVariable("BingSpeech-subscriptionKey");
+            var subscriptionKey = Environment.GetEnvironmentVariable("SpeechSubscriptionKey");
             using (var client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", Environment.GetEnvironmentVariable("BingSpeech-subscriptionKey"));
+                client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", Environment.GetEnvironmentVariable("SpeechSubscriptionKey"));
 
                 using (var content = new MultipartFormDataContent())
                 {
