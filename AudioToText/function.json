@@ -5,13 +5,13 @@
       "type": "blobTrigger",
       "direction": "in",
       "path": "audio/{name}",
-      "connection": "AzureWebJobsDashboard"
+      "connection": "SpeechStorage"
     },
     {
       "type": "queue",
       "name": "$return",
       "queueName": "speechtotext",
-      "connection": "AzureWebJobsDashboard",
+      "connection": "SpeechStorage",
       "direction": "out"
     }
   ],
