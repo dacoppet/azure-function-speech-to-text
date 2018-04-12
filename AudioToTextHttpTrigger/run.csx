@@ -25,7 +25,7 @@ public static HttpResponseMessage Run(HttpRequestMessage req, string name, Trace
         Stream audioFile = await req.Content.ReadAsStreamAsync();
         var name = Guid.NewGuid().ToString();
 
-        recognitionResult = await SpeechApiHelper.ProcessSpeech(audioFile, name, urlFull, subscriptionKey);
+        recognitionResult = await ProcessSpeech(audioFile, name, urlFull, subscriptionKey);
 
 
         log.Info($"API result : {recognitionResult}");
@@ -42,6 +42,28 @@ public static HttpResponseMessage Run(HttpRequestMessage req, string name, Trace
 
     return new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent(recognitionResult) };
 
-    // Fetching the name from the path parameter in the request URL
-    //return req.CreateResponse(HttpStatusCode.OK, "Hello " + name);
+}
+private static async Task<string> ProcessSpeech(Stream audioFile, string name, string urlFull, string subscriptionKey)
+        {
+            var apiResult = string.Empty;
+
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", subscriptionKey);
+
+                using (var content = new MultipartFormDataContent())
+                {
+                    var streamContent = new StreamContent(audioFile);
+                    streamContent.Headers.Add("Content-Disposition", $"form-data; name=\"file\"; filename=\"{name}\"");
+                    content.Add(streamContent, "file", name);
+                    var httpResponse = await client.PostAsync(urlFull, content);
+
+                    apiResult = await httpResponse.Content.ReadAsStringAsync();
+                    // TODO: test input
+                    Trace.TraceInformation($"Result  - {apiResult}");
+                }
+            }
+
+ return apiResult;
 }
