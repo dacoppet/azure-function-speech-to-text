@@ -14,7 +14,7 @@ public static async Task<string> Run(Stream audio, string name, TraceWriter log)
 {
 
     log.Info($"C# Blob trigger function Processed audio file \n Name:{name} \n Size: {audio.Length} Bytes");
-            var culture = Environment.GetEnvironmentVariable("BingSpeech-Locale");
+            var culture = Environment.GetEnvironmentVariable("SpeechLocale");
             var urlBase = "https://speech.platform.bing.com/speech/recognition/interactive/cognitiveservices/v1";
             var urlFull = $"{urlBase}?language={culture}&format=detailed";
             var recognitionResult = string.Empty;
