@@ -1,44 +1,32 @@
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Threading.Tasks;
+using AudioToText.Helper;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
 
 namespace AudioToText
 {
-    public static class SpeechToTextRestBackup
+    public static class SpeechToTextRest
     {
-        [FunctionName("SpeechToTextRestBackup")]
-        [return: Queue("demoaudio", Connection = "Target-Blob")]
-        public static async System.Threading.Tasks.Task<string> RunAsync([BlobTrigger("demoaudio/{name}", Connection = "Target-Blob")]Stream audioFile,
+        [FunctionName("SpeechToTextRest")]
+        [return: Queue("sttrest", Connection = "SpeechStorage")]
+        public static async Task<string> RunAsync([BlobTrigger("audio/{name}", Connection = "SpeechStorage")]Stream audioFile,
             string name, TraceWriter log)
         {
             log.Info($"C# Blob trigger function Processed audio file \n Name:{name} \n Size: {audioFile.Length} Bytes");
-            var culture = Environment.GetEnvironmentVariable("BingSpeech-Locale");
+            var culture = Environment.GetEnvironmentVariable("SpeechLocale");
             var urlBase = "https://speech.platform.bing.com/speech/recognition/interactive/cognitiveservices/v1";
             var urlFull = $"{urlBase}?language={culture}&format=detailed";
-            var recognitionResult = string.Empty;
-            var subscriptionKey = Environment.GetEnvironmentVariable("BingSpeech-subscriptionKey");
-            using (var client = new HttpClient())
-            {
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", Environment.GetEnvironmentVariable("BingSpeech-subscriptionKey"));
+            var subscriptionKey = Environment.GetEnvironmentVariable("SpeechSubscriptionKey");
 
-                using (var content = new MultipartFormDataContent())
-                {
-                    var streamContent = new StreamContent(audioFile);
-                    streamContent.Headers.Add("Content-Disposition", $"form-data; name=\"file\"; filename=\"{name}\"");
-                    content.Add(streamContent, "file", name);
-                    var result = await client.PostAsync(urlFull, content);
-                    
-                    recognitionResult = await result.Content.ReadAsStringAsync();
-                    // TODO: test input
-                    log.Info($"Result  - {recognitionResult}");
-                }
-            }
+            var recognitionResult = await SpeechApiHelper.ProcessSpeech(audioFile, name, urlFull, subscriptionKey);
 
             return recognitionResult;
         }
+
     }
 }
