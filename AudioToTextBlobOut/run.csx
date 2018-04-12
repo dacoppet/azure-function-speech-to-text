@@ -10,7 +10,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
-public static async Task Run(Stream audio, string name, out string textout, TraceWriter log)
+public static async Task<string> Run(Stream audio, string name, TraceWriter log)
 {
 
     log.Info($"C# Blob trigger function Processed audio file \n Name:{name} \n Size: {audio.Length} Bytes");
@@ -37,5 +37,5 @@ public static async Task Run(Stream audio, string name, out string textout, Trac
                 }
             }
 
-            textout = recognitionResult;
+            return recognitionResult;
 }

@@ -8,9 +8,9 @@
       "connection": "SpeechStorage"
     },
     {
-      "type": "queue",
       "name": "$return",
-      "queueName": "speechtotext",
+      "type": "blob",
+      "path": "translation/{name}.txt",
       "connection": "SpeechStorage",
       "direction": "out"
     }
