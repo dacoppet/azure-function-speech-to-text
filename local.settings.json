@@ -1,0 +1,11 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "WEBSITE_SLOT_NAME": "Production",
+    "FUNCTIONS_EXTENSION_VERSION": "~1",
+    "AzureWebJobsDashboard": "",
+    "BingSpeech-subscriptionKey": "",
+    "BingSpeech-Locale": "ja-jp",
+    "AzureWebJobsStorage": ""
+  }
+}

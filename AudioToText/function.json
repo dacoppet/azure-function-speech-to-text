@@ -1,0 +1,19 @@
+{
+  "bindings": [
+    {
+      "name": "audio",
+      "type": "blobTrigger",
+      "direction": "in",
+      "path": "audio/{name}",
+      "connection": "SpeechStorage"
+    },
+    {
+      "type": "queue",
+      "name": "$return",
+      "queueName": "speechtotext",
+      "connection": "SpeechStorage",
+      "direction": "out"
+    }
+  ],
+  "disabled": false
+}

@@ -1,0 +1,19 @@
+{
+  "bindings": [
+    {
+      "name": "audio",
+      "type": "blobTrigger",
+      "direction": "in",
+      "path": "audio/{name}",
+      "connection": "SpeechStorage"
+    },
+    {
+      "name": "$return",
+      "type": "blob",
+      "path": "translation/{name}.txt",
+      "connection": "SpeechStorage",
+      "direction": "out"
+    }
+  ],
+  "disabled": false
+}
